@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: rgb(38, 78, 38);
+      color: white;
+    }
+    textarea {
+      width: 100%;
+      resize: none;
+    }
+    .warning {
+      color: red;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .copied-message {
+      color: yellow;
+      font-weight: bold;
+      margin-left: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+    <!-- <div id="warning" class="warning">
+        ⚠️ Esta función solo funciona en dispositivos móviles. Si visualizas estos mensajes en WhatsApp Desk, se verán completamente.
+      </div> -->
+  <h1>Text Generator</h1>
+  <form id="text-form" onsubmit="return false;">
+    <label for="input-text">Warning message:</label><br>
+    <input type="text" id="input-warning-text" value="[SPOILER][SPOILER]" required><br><br>
+
+    <label for="input-text">Enter your text:</label><br>
+    <input type="text" id="input-text" placeholder="Type something..." required><br><br>
+
+    <button type="button" onclick="generateText()">Generate Spoiler Text</button><br><br>
+
+    <label for="output-text">Generated Text:</label><br>
+    <textarea id="output-text" rows="4" readonly></textarea><br><br>
+
+    <button type="button" onclick="copyText()">Copy to Clipboard</button>
+    <span id="copied-message" class="copied-message">¡Text copied!</span>
+  </form>
+
+  <script>
+    function generateText() {
+      const inputText = document.getElementById('input-text').value;
+      const spaces = ' '.repeat(4000);
+      const newText = document.getElementById("input-warning-text").value + `${spaces}${inputText}`;
+      document.getElementById('output-text').value = newText;
+    }
+
+    function copyText() {
+      const textarea = document.getElementById('output-text');
+      const copiedMessage = document.getElementById('copied-message');
+
+      textarea.select();
+      textarea.setSelectionRange(0, textarea.value.length); // For mobile devices
+      document.execCommand('copy');
+      document.getSelection().removeAllRanges()
+    //   alert('Text copied to clipboard!');
+      // Show "Copied" message
+      copiedMessage.style.display = 'inline';
+      setTimeout(() => {
+        copiedMessage.style.display = 'none'; // Hide message after 2 seconds
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
